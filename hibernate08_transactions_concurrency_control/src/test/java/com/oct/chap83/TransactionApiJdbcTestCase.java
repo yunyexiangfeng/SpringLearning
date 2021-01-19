@@ -4,6 +4,7 @@ import com.oct.entity.chap83.Customer;
 import junit.framework.TestCase;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
@@ -11,6 +12,8 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.query.Query;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
+
+import java.util.List;
 
 /**
  * @Author: Administrator
@@ -28,11 +31,11 @@ public class TransactionApiJdbcTestCase extends TestCase {
      * Example 384. Using Transaction API in JDBC
      */
     public void testTransactionApiJdbc(){
-        StandardServiceRegistry registry = new StandardServiceRegistryBuilder().
-                configure().
+        StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
+                .configure("hibernate.cfg.xml")
                 // "jdbc" is the default, but for explicitness
-                applySetting(AvailableSettings.TRANSACTION_COORDINATOR_STRATEGY, "jdbc").
-                build();
+                .applySetting(AvailableSettings.TRANSACTION_COORDINATOR_STRATEGY, "jdbc")
+                .build();
 
         Metadata metadata = new MetadataSources(registry).
                 addAnnotatedClass(Customer.class).
@@ -49,8 +52,7 @@ public class TransactionApiJdbcTestCase extends TestCase {
             // calls Connection#setAutoCommit( false ) to
             // signal start of transaction
             session.getTransaction().begin();
-            Query query = session.createQuery("update Customer set name = 'cc'");
-            System.out.println(query.getFetchSize());
+            session.createQuery("update Customer a set a.name = 'dd'").executeUpdate();
             // calls Connection#commit(), if an error
             // happens we attempt a rollback
             session.getTransaction().commit();

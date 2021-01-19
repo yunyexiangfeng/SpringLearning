@@ -1,4 +1,4 @@
-#Hibernate user guide
+# Hibernate user guide
 
 ## 1. Persistence Context
 
@@ -1379,9 +1379,53 @@ finally {
 
 ## 9. JNDI
 
-
+略
 
 ## 10. Locking
+
+在关系数据库中，锁是指为防止数据在读取和使用之间发生更改而采取的操作。
+
+您的锁定策略可以是乐观的也可以是悲观的。
+
+- 乐观的
+
+  乐观锁定假设多个事务可以完成而不会互相影响，因此事务可以继续进行而不会锁定它们影响的数据资源。在提交之前，每个事务都会验证没有其他事务修改过其数据。如果检查显示有冲突的修改，则提交的事务将回滚。
+
+- 悲观
+  悲观锁定假定并发事务会相互冲突，并要求在读取资源后将其锁定，并且仅在应用程序使用完数据后将其解锁。
+
+Hibernate提供了在应用程序中实现两种锁定类型的机制。
+
+###10.1. Optimistic
+
+Hibernate提供了两种不同的机制来存储版本信息，专用版本号或时间戳。
+
+```tex
+注：
+对于分离的实例，version或timestamp属性永远不能为null。Hibernate会将任何具有空版本或时间戳的实例检测为瞬态，而与您指定的其他未保存值策略无关。声明可空版本或时间戳属性是避免在Hibernate中进行传递重新连接时遇到问题的一种简便方法，特别是在使用分配的标识符或组合键的情况下尤其有用。
+```
+
+#### 10.1.1. Mapping optimistic locking
+
+JPA基于版本（顺序数字）或时间戳策略定义了对乐观锁定的支持。要启用这种类型的乐观锁定，只需在javax.persistence.Version定义乐观锁定值的持久属性中添加即可。根据JPA，这些属性的有效类型限于：
+
+- int 要么 Integer
+
+- short 要么 Short
+
+- long 要么 Long
+
+- java.sql.Timestamp
+
+但是，Hibernate甚至允许您使用Java 8日期/时间类型，例如Instant。
+
+Example 387. `@Version` annotation mapping
+
+
+
+
+
+###10.2. Pessimistic
 
 
 

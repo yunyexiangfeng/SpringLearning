@@ -15,7 +15,6 @@
         <module>anno02_componentscan</module>
         <module>hibernate_jpa</module>
         <module>hibernate_user_guide</module>
-        <module>hibernate_schema_generation</module>
         <module>hibernate04_schema_generation</module>
         <module>hibernate03_bootstrap</module>
         <module>hibernate05_persistence_context</module>
