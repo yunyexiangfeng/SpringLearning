@@ -1,0 +1,52 @@
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+             http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+             version="2.1">
+
+    <persistence-unit name="CRM">
+        <description>
+            Persistence unit for Hibernate User Guide
+        </description>
+
+        <!--配置使用ORM，此处为Hibernate-->
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+<!--        <class>org.hibernate.documentation.userguide.Document</class>-->
+
+
+        <!--3.2. JPA Bootstrapping-->
+        <!--<properties>
+            <property name="javax.persistence.jdbc.driver"
+                      value="org.h2.Driver" />
+
+            <property name="javax.persistence.jdbc.url"
+                      value="jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1;MVCC=TRUE" />
+
+            <property name="javax.persistence.jdbc.user"
+                      value="sa" />
+
+            <property name="javax.persistence.jdbc.password"
+                      value="" />
+
+            <property name="hibernate.show_sql"
+                      value="true" />
+
+            <property name="hibernate.hbm2ddl.auto"
+                      value="update" />
+        </properties>-->
+        <class>com.oct.entity.MyEntity</class>
+        <properties>
+            <!--jpa-->
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/test"/>
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.password" value="123456"/>
+            <!--hibernate-->
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+        </properties>
+
+    </persistence-unit>
+
+</persistence>
